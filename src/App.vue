@@ -58,6 +58,14 @@ const menu = ref([
     stock: 20
   }
 ])
+
+const reduceStock = (item) => {
+  if (item.stock > 0) item.stock--
+}
+
+const addStock = (item) => {
+  item.stock++
+}
 </script>
 
 <template>
@@ -78,7 +86,10 @@ const menu = ref([
           <small>{{ item.description }}</small>
         </td>
         <td>{{ item.price }}</td>
-        <td><button type="button">-</button>{{ item.stock }}<button type="button">+</button></td>
+        <td>
+          <button type="button" @click="reduceStock(item)" :disabled="item.stock <= 0">-</button
+          >{{ item.stock }}<button type="button" @click="addStock(item)">+</button>
+        </td>
       </tr>
     </tbody>
   </table>
