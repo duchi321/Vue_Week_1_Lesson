@@ -3,65 +3,85 @@ import { ref } from 'vue'
 const menu = ref([
   {
     id: 1,
-    品項: '珍珠奶茶',
-    描敘: '香濃奶茶搭配QQ珍珠',
-    價格: 50,
-    庫存: 20
+    product: '珍珠奶茶',
+    description: '香濃奶茶搭配QQ珍珠',
+    price: 50,
+    stock: 20
   },
   {
     id: 2,
-    品項: '冬瓜檸檬',
-    描敘: '清新冬瓜配上新鮮檸檬',
-    價格: 45,
-    庫存: 18
+    product: '冬瓜檸檬',
+    description: '清新冬瓜配上新鮮檸檬',
+    price: 45,
+    stock: 18
   },
   {
     id: 3,
-    品項: '翡翠檸檬',
-    描敘: '綠茶與檸檬的完美結合',
-    價格: 55,
-    庫存: 34
+    product: '翡翠檸檬',
+    description: '綠茶與檸檬的完美結合',
+    price: 55,
+    stock: 34
   },
   {
     id: 4,
-    品項: '四季春茶',
-    描敘: '香醇四季春茶，回甘無比',
-    價格: 45,
-    庫存: 10
+    product: '四季春茶',
+    description: '香醇四季春茶，回甘無比',
+    price: 45,
+    stock: 10
   },
   {
     id: 5,
-    品項: '阿薩姆奶茶',
-    描敘: '阿薩姆紅茶搭配香醇鮮奶',
-    價格: 50,
-    庫存: 25
+    product: '阿薩姆奶茶',
+    description: '阿薩姆紅茶搭配香醇鮮奶',
+    price: 50,
+    stock: 25
   },
   {
     id: 6,
-    品項: '檸檬冰茶',
-    描敘: '檸檬與冰茶的清新組合',
-    價格: 45,
-    庫存: 20
+    product: '檸檬冰茶',
+    description: '檸檬與冰茶的清新組合',
+    price: 45,
+    stock: 20
   },
   {
     id: 7,
-    品項: '芒果綠茶',
-    描敘: '芒果與綠茶的獨特風味',
-    價格: 55,
-    庫存: 18
+    product: '芒果綠茶',
+    description: '芒果與綠茶的獨特風味',
+    price: 55,
+    stock: 18
   },
   {
     id: 8,
-    品項: '抹茶拿鐵',
-    描敘: '抹茶與鮮奶的絕配',
-    價格: 60,
-    庫存: 20
+    product: '抹茶拿鐵',
+    description: '抹茶與鮮奶的絕配',
+    price: 60,
+    stock: 20
   }
 ])
 </script>
 
 <template>
   {{ menu }}
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">品項</th>
+        <th scope="col">描述</th>
+        <th scope="col">價格</th>
+        <th scope="col">庫存</th>
+      </tr>
+    </thead>
+    <tbody v-for="item in menu" :key="item.id">
+      <tr>
+        <td>{{ item.product }}</td>
+        <td>
+          <small>{{ item.description }}</small>
+        </td>
+        <td>{{ item.price }}</td>
+        <td><button type="button">-</button>{{ item.stock }}<button type="button">+</button></td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <style scoped></style>
