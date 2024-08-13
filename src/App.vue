@@ -66,10 +66,34 @@ const reduceStock = (item) => {
 const addStock = (item) => {
   item.stock++
 }
+
+// 編輯品項
+const editItem = ref(null)
+
+const edit = (item) => {
+  editItem.value = { ...item }
+}
+
+// 確認編輯
+const confirmEdit = () => {
+  // 找出編輯中的品項
+  const modified = menu.value.find((item) => item.id === editItem.value.id)
+  // 更新品項資料
+  if (modified) {
+    modified.product = editItem.value.product
+    modified.description = editItem.value.description
+    modified.price = editItem.value.price
+  }
+  editItem.value = null
+}
+
+// 取消編輯
+const cancelEdit = () => {
+  editItem.value = null
+}
 </script>
 
 <template>
-  {{ menu }}
   <table>
     <thead>
       <tr>
@@ -90,9 +114,25 @@ const addStock = (item) => {
           <button type="button" @click="reduceStock(item)" :disabled="item.stock <= 0">-</button
           >{{ item.stock }}<button type="button" @click="addStock(item)">+</button>
         </td>
+        <td>
+          <button type="button" @click="edit(item)">編輯</button>
+        </td>
       </tr>
     </tbody>
   </table>
+  <div v-if="editItem">
+    <h3>編輯品項</h3>
+    <label for="name">品項</label>
+    <input v-model="editItem.product" /><br />
+    <label for="description">描述</label>
+    <input v-model="editItem.description" /><br />
+    <label for="price">價格</label>
+    <input v-model.number="editItem.price" />
+    <div>
+      <button type="button" @click="confirmEdit">確認</button>
+      <button type="button" @click="cancelEdit">取消</button>
+    </div>
+  </div>
 </template>
 
 <style scoped></style>
