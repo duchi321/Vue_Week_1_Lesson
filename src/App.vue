@@ -97,10 +97,11 @@ const cancelEdit = () => {
   <table>
     <thead>
       <tr>
-        <th scope="col">品項</th>
-        <th scope="col">描述</th>
-        <th scope="col">價格</th>
-        <th scope="col">庫存</th>
+        <th>品項</th>
+        <th>描述</th>
+        <th>價格</th>
+        <th>庫存</th>
+        <th></th>
       </tr>
     </thead>
     <tbody v-for="item in menu" :key="item.id">
@@ -111,8 +112,16 @@ const cancelEdit = () => {
         </td>
         <td>{{ item.price }}</td>
         <td>
-          <button type="button" @click="reduceStock(item)" :disabled="item.stock <= 0">-</button
-          >{{ item.stock }}<button type="button" @click="addStock(item)">+</button>
+          {{ item.stock }}
+          <button
+            type="button"
+            class="reducebutton"
+            @click="reduceStock(item)"
+            :disabled="item.stock <= 0"
+          >
+            -
+          </button>
+          <button type="button" class="addbutton" @click="addStock(item)">+</button>
         </td>
         <td>
           <button type="button" @click="edit(item)">編輯</button>
@@ -120,13 +129,13 @@ const cancelEdit = () => {
       </tr>
     </tbody>
   </table>
-  <div v-if="editItem">
+  <div class="editbox" v-if="editItem">
     <h3>編輯品項</h3>
-    <label for="name">品項</label>
+    <label for="name">品項:</label>
     <input v-model="editItem.product" /><br />
-    <label for="description">描述</label>
+    <label for="description">描述:</label>
     <input v-model="editItem.description" /><br />
-    <label for="price">價格</label>
+    <label for="price">價格:</label>
     <input v-model.number="editItem.price" />
     <div>
       <button type="button" @click="confirmEdit">確認</button>
@@ -135,4 +144,77 @@ const cancelEdit = () => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+table {
+  width: 90%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 10px auto;
+}
+
+thead {
+  background-color: #333;
+  color: #fff;
+}
+
+th {
+  padding: 5px;
+  text-align: center;
+  border: 1px solid #444;
+}
+
+td {
+  padding: 5px;
+  text-align: center;
+  border: 1px solid #eee;
+}
+
+button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.reducebutton {
+  margin-left: 30px;
+}
+
+.addbutton {
+  margin-left: 10px;
+}
+
+button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.editbox {
+  width: 25%;
+  height: 250px;
+  margin: 0 auto;
+  padding: 15px;
+  border: 1px solid black;
+}
+
+h3 {
+  margin: 0 0 5px 0;
+  color: #333;
+}
+
+input {
+  margin: 5px 0 10px 0;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: calc(100% - 16px);
+  box-sizing: border-box;
+}
+
+div > button {
+  margin-right: 12px;
+}
+</style>
